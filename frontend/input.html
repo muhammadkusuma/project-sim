@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Obat</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- input data barang -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 card p-3">
+                <h1 class="text-center">Input Data Obat</h1>
+                <form action="input.php" method="post">
+                    <!-- foto obat -->
+                    <div class="mb-3">
+                        <label for="foto" class="form-label">Foto Obat</label>
+                        <input type="file" class="form-control" id="foto" name="foto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nama_obat" class="form-label">Nama Obat</label>
+                        <input type="text" class="form-control" id="nama_obat" name="nama_obat" placeholder="Nama Obat" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jenis_obat" class="form-label">Jenis Obat</label>
+                        <input type="text" class="form-control" id="jenis_obat" name="jenis_obat" placeholder="Jenis Obat" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="harga_obat" class="form-label">Harga Obat</label>
+                        <input type="number" class="form-control" id="harga_obat" name="harga_obat" placeholder="Harga Obat" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="stok_obat" class="form-label">Stok Obat</label>
+                        <input type="text" class="form-control" id="stok_obat" name="stok_obat" placeholder="Stok Obat" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tanggal_kadaluarsa" class="form-label">Tanggal Kadaluarsa</label>
+                        <input type="date" class="form-control" id="tanggal_kadaluarsa" name="tanggal_kadaluarsa" placeholder="Tanggal Kadaluarsa" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                    <!-- back -->
+                    <a href="index.php" class="btn btn-danger ">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end input data barang -->
+    <script src="../bootstrap/js/bootstrap.js"></script>
+</body>
+</html>

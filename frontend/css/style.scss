@@ -1,0 +1,47 @@
+// unggulan
+.btn-beli{
+    width: 100%;
+}
+// signup
+#signup-signup, #signup{
+    background-image: url(../asset/triangles_pattern.webp);
+}
+.row-signup{
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.signup{
+    // position: absolute;
+    margin-top: 10%;
+    height: 50vh;
+    width: 40vw;
+}
+.btn-signup{
+    width: 100%;
+}
+
+// login
+#login-login, #login{
+    background-image: url(../asset/triangles_pattern.webp);
+}
+.row-login{
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.login{
+    // position: absolute;
+    margin-top: 10%;
+    height: 50vh;
+    width: 40vw;
+}
+.btn-login{
+    width: 100%;
+}
