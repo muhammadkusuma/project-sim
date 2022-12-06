@@ -1,3 +1,8 @@
+<?php
+require 'backend/function.php';
+$obat = query("SELECT * FROM barang");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,8 +22,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="frontend/asset-index/css/fontawesome.min.css">
     <!-- <link rel="stylesheet" href="fontawesome/css/fontawesome.min.css"> -->
-    
-    
+
+
     <!--
     
 TemplateMo 559 Zay Shop
@@ -92,7 +97,7 @@ https://templatemo.com/tm-559-zay-shop
                     <a class="nav-icon position-relative text-decoration-none" href="#">
                         <!-- <i class="fa fa-fw fa-user text-dark mr-3"></i> -->
                         <!-- <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span> -->
-                        <a href="frontend/login.php">Login</a> 
+                        <a href="frontend/login.php">Login</a>
                     </a>
                     <a class="nav-icon position-relative text-decoration-none" href="#">
                         <a href="frontend/signup.php">Signup</a>
@@ -215,16 +220,19 @@ https://templatemo.com/tm-559-zay-shop
                 <h5 class="text-center mt-3 mb-3">Watches</h5>
                 <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
             </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="frontend/asset-index/img/category_img_02.jpg" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">Shoes</h2>
-                <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-            </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="frontend/asset-index/img/category_img_03.jpg" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">Accessories</h2>
-                <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-            </div>
+            <?php foreach ($obat as $row) : ?>
+                <div class="col-12 col-md-4 p-5 mt-3">
+                    <a href="#"><img src="frontend/img/<?= $row['foto_obat'] ?>" class="rounded-circle img-fluid border"></a>
+                    <h5 class="text-center mt-3 mb-3"><?= $row['nama_obat'] ?></h5>
+                    <p class="text-center">Rp.<?= $row['harga_obat'] ?></p>
+                    <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
+
+                </div>
+
+            <?php endforeach; ?>
+        </div>
+
+
         </div>
     </section>
     <!-- End Categories of The Month -->
