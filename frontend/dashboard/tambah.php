@@ -9,7 +9,7 @@ if (isset($_POST['tambah'])) {
     if (tambah_obat($_POST) > 0) {
         echo "<script>
             alert('Data Berhasil Ditambahkan');
-            document.location.href = 'index.php';
+            document.location.href = 'data.php';
         </script>";
     } else {
         echo "<script>
@@ -77,21 +77,21 @@ if (isset($_POST['tambah'])) {
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item  ">
+                        <li class="sidebar-item   ">
                             <a href="index.php" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+                                <i class="bi bi-box-arrow-right"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item  has-sub active">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
                                 <span>Produk</span>
                             </a>
-                            <ul class="submenu active ">
-                                <li class="submenu-item active">
-                                    <a href="input.php">Tambah Produk</a>
+                            <ul class="submenu ">
+                                <li class="submenu-item active ">
+                                    <a href="tambah.php">Tambah Produk</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="data.php">Lihat Produk</a>
@@ -100,16 +100,11 @@ if (isset($_POST['tambah'])) {
                             </ul>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>Users</span>
+                        <li class="sidebar-item">
+                            <a href="../../backend/logout.php" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Log Out</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="table-datatable-jquery.html">Users</a>
-                                </li>
-                            </ul>
                         </li>
 
                     </ul>
@@ -133,7 +128,7 @@ if (isset($_POST['tambah'])) {
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Input</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tambah Produk</li>
                                 </ol>
                             </nav>
                         </div>
@@ -184,18 +179,6 @@ if (isset($_POST['tambah'])) {
                 </section>
 
             </div>
-
-            <!-- <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="https://saugi.me">Saugi</a></p>
-                    </div>
-                </div>
-            </footer> -->
         </div>
     </div>
     <script src="assets/js/bootstrap.js"></script>

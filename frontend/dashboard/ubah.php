@@ -5,30 +5,52 @@ if (!isset($_SESSION['admin'])) {
     exit;
 }
 require '../../backend/function.php';
-$obat = query("SELECT * FROM barang");
+
+// ambil data di URL
+$id = $_GET["id_obat"];
+
+// query data produk berdasarkan id
+$obat = query("SELECT * FROM barang WHERE id_obat = $id")[0];
+
+// cek apakah tombol submit sudah ditekan atau belum
+if (isset($_POST["submit"])) {
+    // cek apakah data berhasil diubah atau tidak
+    if (ubah($_POST) == 0) {
+        echo "
+            <script>
+                alert('data berhasil diubah!');
+                document.location.href = 'data.php';
+            </script>
+        ";
+    } else {
+        echo "
+            <script>
+                alert('data gagal diubah!');
+                document.location.href = 'ubah.php';
+            </script>
+        ";
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obat - Admin Dashboard</title>
+    <title>Ubah Produk - Apotik X Admin Dashboard</title>
 
     <link rel="stylesheet" href="assets/css/main/app.css">
     <link rel="stylesheet" href="assets/css/main/app-dark.css">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
 
-    <link rel="stylesheet" href="assets/css/pages/fontawesome.css">
-    <link rel="stylesheet" href="assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="assets/css/pages/datatables.css">
-
 </head>
 
 <body>
     <div id="app">
-    <div id="sidebar" class="active">
+        <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
@@ -75,17 +97,16 @@ $obat = query("SELECT * FROM barang");
                             </a>
                         </li>
 
-
                         <li class="sidebar-item  has-sub active">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
                                 <span>Produk</span>
                             </a>
                             <ul class="submenu ">
-                                <li class="submenu-item  ">
+                                <li class="submenu-item active ">
                                     <a href="tambah.php">Tambah Produk</a>
                                 </li>
-                                <li class="submenu-item active">
+                                <li class="submenu-item ">
                                     <a href="data.php">Lihat Produk</a>
                                 </li>
 
@@ -98,6 +119,7 @@ $obat = query("SELECT * FROM barang");
                                 <span>Log Out</span>
                             </a>
                         </li>
+
                     </ul>
                 </div>
             </div>
@@ -113,68 +135,70 @@ $obat = query("SELECT * FROM barang");
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Data Obat</h3>
+                            <h3>Ubah Data Produk</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Data Obat</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tambah Produk</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </div>
-
-                <!-- Basic Tables start -->
                 <section class="section">
                     <div class="card">
-                        <div class="card-body">
-                            <table class="table" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Nama</th>
-                                        <th>Kategori</th>
-                                        <th>Harga</th>
-                                        <th>Stok</th>
-                                        <th>Exp</th>
-                                        <th>Aksi</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($obat as $row) : ?>
-                                        <tr>
-                                            <td><img src="../img/<?= $row["foto_obat"]; ?>" width="50"></td>
-                                            <td><?= $row["nama_obat"]; ?></td>
-                                            <td><?= $row["kategori_obat"]; ?></td>
-                                            <td><?= $row["harga_obat"]; ?></td>
-                                            <td><?= $row["stok_obat"]; ?></td>
-                                            <td><?= $row["exp_obat"]; ?></td>
-                                            <td>
-                                                <a href="ubah.php?id_obat=<?= $row["id_obat"]; ?>" class="btn btn-warning">Ubah</a>
-                                                <!-- <a href="hapus.php?id_obat=<?= $row["id_obat"]; ?>" class="btn btn-danger" onclick="return confirm('Yakin?');">Hapus</a> -->
-                                                <a href="../../backend/hapus.php?id_obat=<?= $row["id_obat"]; ?>" class="btn btn-danger" onclick="return confirm('Yakin?');">Hapus</a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="hidden" name="id" value="<?= $obat["id_obat"] ?>">
+                                        <input type="hidden" name="fotoLama" value="<?= $obat["foto_obat"] ?>">
+                                        <div class="form-group">
+                                            <label for="fotoObat" class="form-label">Foto Produk</label>
+                                            <img src="../img/<?= $obat["foto_obat"] ?>" alt="" width="100px" height="auto">
+                                            <input class="form-control" type="file" id="foto_obat" name="fotoObat">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nama_obat">Nama Obat</label>
+                                            <input type="text" class="form-control" id="nama_obat" name="nama_obat" value="<?= $obat["nama_obat"] ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kategori_obat">Kategori Obat</label>
+                                            <input type="text" class="form-control" id="kategori_obat" name="kategori_obat" value="<?= $obat["kategori_obat"] ?>">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mt-2">
+                                            <label for="harga_obat">Harga</label>
+                                            <input type="number" class="form-control" id="harga_obat" placeholder="10000" name="harga_obat" value="<?= $obat["harga_obat"] ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="stok_obat">Stok Obat</label>
+                                            <input type="number" class="form-control" id="stok_obat" placeholder="999" name="stok_obat" value="<?= $obat["stok_obat"] ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exp_obat">Tanggal Kadaluarsa</label>
+                                            <input type="date" class="form-control" id="exp_obat" name="exp_obat"   value="<?= $obat["exp_obat"] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="submit" class="btn btn-primary" name="submit" value="Ubah Data">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-
                 </section>
-                <!-- Basic Tables end -->
+
             </div>
         </div>
     </div>
     <script src="assets/js/bootstrap.js"></script>
     <script src="assets/js/app.js"></script>
-
-    <script src="assets/extensions/jquery/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
-    <script src="assets/js/pages/datatables.js"></script>
 
 </body>
 

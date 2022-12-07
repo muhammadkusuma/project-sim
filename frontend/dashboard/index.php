@@ -1,4 +1,11 @@
-
+<?php
+session_start();
+if (!isset($_SESSION['admin'])) {
+    header("Location: ../frontend/login.php");
+    exit;
+}
+require '../../backend/function.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,9 +65,9 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+                        <li class="sidebar-item  active ">
+                            <a href="index.php" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-right"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
@@ -79,67 +86,18 @@
                                     <a href="tambah.php">Tambah Produk</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="table-datatable-jquery.html">Lihat Produk</a>
+                                    <a href="data.php">Lihat Produk</a>
                                 </li>
 
                             </ul>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>Users</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="table-datatable-jquery.html">Users</a>
-                                </li>
-                            </ul>
-                        </li>
-
-
-
-                        <!-- <li class="sidebar-title">Pages</li> -->
-
-                        <!-- <li class="sidebar-item  ">
-                            <a href="application-email.html" class='sidebar-link'>
-                                <i class="bi bi-envelope-fill"></i>
-                                <span>Email Application</span>
+                        <li class="sidebar-item">
+                            <a href="../../backend/logout.php" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Log Out</span>
                             </a>
                         </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="application-chat.html" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
-                                <span>Chat Application</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="application-checkout.html" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Checkout Page</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-person-badge-fill"></i>
-                                <span>Authentication</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="auth-login.html">Login</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-register.html">Register</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-forgot-password.html">Forgot Password</a>
-                                </li>
-                            </ul>
-                        </li> -->
-
 
                     </ul>
                 </div>
@@ -413,13 +371,13 @@
                 </section>
             </div> -->
 
-            <footer>
+            <!-- <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
                         <p>2022 &copy; Company Name</p>
                     </div>
                 </div>
-            </footer>
+            </footer> -->
         </div>
     </div>
     <script src="assets/js/bootstrap.js"></script>

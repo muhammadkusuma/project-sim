@@ -11,13 +11,17 @@ if (isset($_POST['login'])) {
     if ($row) {
         if (password_verify($password, $row['password'])) {
             $_SESSION['login'] = true;
-            header("Location: ../index.php");
+            header("Location: dashboard/user.php");
             if ($row['level'] == 'admin') {
                 $_SESSION['admin'] = true;
                 header("Location: dashboard/index.php");
             }
+            if ($row['level'] == 'manager') {
+                $_SESSION['manager'] = true;
+                header("Location: dashboard/manager.php");
+            }
             exit;
-        }else{
+        } else {
             $error = true;
             echo "<script>alert('Username/Password Salah')</script>";
         }

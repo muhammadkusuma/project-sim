@@ -2,15 +2,24 @@
 require 'getConnection.php';
 $conn = getConnection();
 
+
+function query($query)
+{
+    global $conn;
+    $result = $conn->query($query);
+    $rows = [];
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        $rows[] = $row;
+    }
+
+    return $rows;
+}
 function registrasi($data)
 {
     global $conn;
-
     $username = strtolower(stripslashes($data["username"]));
     $password = $data["password"];
     $password2 = $data["password2"];
-
-    // $query = "SELECT user VALUES ('','$username','$password' WHERE username='$username')";
 
     if ($password !== $password2) {
         echo "<script>
@@ -21,7 +30,7 @@ function registrasi($data)
 
     $password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO users (username, password) VALUES ('$username','$password')";
+    $sql = "INSERT INTO users (username, password,level) VALUES ('$username','$password','pembeli')";
     $conn->exec($sql);
 
     return $conn->lastInsertId();
@@ -51,7 +60,7 @@ function tambah_obat($data)
 function upload()
 {
     $namaFile = $_FILES['fotoObat']['name'];
-    $ukuranFile = $_FILES['fotObat']['size'];
+    $ukuranFile = $_FILES['fotoObat']['size'];
     $error = $_FILES['fotoObat']['error'];
     $tmpName = $_FILES['fotoObat']['tmp_name'];
 
@@ -89,14 +98,39 @@ function upload()
     return $namaFileBaru;
 }
 
-function query($query)
+
+function ubah($data)
 {
     global $conn;
-    $result = $conn->query($query);
-    $rows = [];
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        $rows[] = $row;
+    $id = $data["id"];
+    $nama_obat = $data["nama_obat"];
+    $kategori_obat = $data["kategori_obat"];
+    $harga_obat = $data["harga_obat"];
+    $stok_obat = $data["stok_obat"];
+    $exp_obat = $data["exp_obat"];
+    $fotoLama = $data["fotoLama"];
+
+    if ($_FILES['fotoObat']['error'] === 4) {
+        $fotoObat = $data['fotoLama'];
+    } else {
+        $fotoObat = upload();
     }
 
-    return $rows;
+    $sql = "UPDATE barang SET nama_obat='$nama_obat', kategori_obat='$kategori_obat', harga_obat='$harga_obat', stok_obat='$stok_obat', exp_obat='$exp_obat', foto_obat='$fotoObat' WHERE id_obat=$id";
+    $conn->exec($sql);
+
+    return $conn->lastInsertId();
 }
+
+
+function hapus($id)
+{
+    global $conn;
+    $sql = "DELETE FROM barang WHERE id_obat=:id";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(":id", $id);
+    $stmt->execute();
+
+    return $stmt->rowCount();
+}
+
