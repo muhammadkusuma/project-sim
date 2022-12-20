@@ -237,12 +237,16 @@ https://templatemo.com/tm-559-zay-shop
                 <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
             </div> -->
             <?php foreach ($obat as $row) : ?>
-                <div class="col-12 col-md-4 p-5 mt-3">
+                <!-- <div class="col-12 col-md-4 p-5 mt-3">
                     <a href="#"><img src="frontend/img/<?= $row['foto_obat'] ?>" class="rounded-circle img-fluid border"></a>
                     <h5 class="text-center mt-3 mb-3"><?= $row['nama_obat'] ?></h5>
                     <p class="text-center">Rp.<?= $row['harga_obat'] ?></p>
-                    <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
+                    <a href="frontend/dashboard/user.php?id_obat=<?= $row["id_obat"]; ?>" class="btn btn-warning">Beli</a>
 
+                </div> -->
+                <!-- kategori obat -->
+                <div class="col-5 p-2 m-auto text-center" >
+                    <a href="#"><?= $row['kategori_obat']?></a>
                 </div>
 
             <?php endforeach; ?>

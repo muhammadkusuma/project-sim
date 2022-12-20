@@ -1,4 +1,9 @@
 <?php
+session_start();
+// if (!isset($_SESSION['login'])) {
+//     header("Location: ../../frontend/login.php");
+//     exit;
+// }
 
 require '../../backend/function.php';
 
@@ -14,7 +19,7 @@ if (isset($_POST["beli"])) {
         echo "
             <script>
                 alert('pembelian berhasil');
-                document.location.href = '../../index.php';
+                document.location.href = 'index.php';
             </script>
         ";
     } else {

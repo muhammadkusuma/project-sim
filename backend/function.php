@@ -134,3 +134,23 @@ function hapus($id)
     return $stmt->rowCount();
 }
 
+
+function beli($data)
+{
+    global $conn;
+    $id = $data["id_obat"];
+    $jumlah_obat = $data["jumlah_obat"];
+    $harga_obat = $data["harga_obat"];
+    $jumlahobat = intval($jumlah_obat);
+    $hargaobat = intval($harga_obat);
+    $hargaasli = $jumlahobat * $hargaobat;
+    // $harga= strval($hargaasli);
+    $harga = "$hargaasli";
+    
+    $sql = "INSERT INTO transaksi (id_obat, jumlah, total_harga, status, tanggal)
+                    VALUES ('$id', '$jumlah_obat', '$hargaasli', 'DIPROSES',curdate());";
+    $sql .= "UPDATE barang SET stok_obat = stok_obat - $jumlah_obat WHERE id_obat = $id;";
+    $conn->exec($sql);
+    return $conn->lastInsertId();
+    
+}

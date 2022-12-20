@@ -14,7 +14,10 @@ if (isset($_POST["register"])) {
                document.location.href='../frontend/login.php';
                     </script>";
     } else {
-        echo PDO::errorInfo();
+        echo "<script>
+                        alert('User baru GAGAL ditambahkan!');
+               document.location.href='../frontend/signup.php';
+                    </script>";
     }
 }
 ?>
