@@ -7,17 +7,28 @@ if (isset($_POST['login'])) {
 
     $sql = "SELECT * FROM users WHERE username = '$username'";
     $result = $conn->query($sql);
+    $username = "SELECT username FROM users WHERE username = '$username'";
+    $result1 = $conn->query($username);
+    $row1= $result1->fetch(PDO::FETCH_ASSOC);
     $row = $result->fetch(PDO::FETCH_ASSOC);
     if ($row) {
         if (password_verify($password, $row['password'])) {
             $_SESSION['login'] = true;
+            $_SESSION['id'] = $row['id_pendaftar'];
+            $_SESSION['username'] = $row1['username'];
             header("Location: dashboard/user.php");
             if ($row['level'] == 'admin') {
                 $_SESSION['admin'] = true;
+                $_SESSION['id'] = $row['id_pendaftar'];
+                $_SESSION['username'] = $row1['username'];
+                $_SESSION['level']= $row['level'];
                 header("Location: dashboard/index.php");
             }
             if ($row['level'] == 'manager') {
                 $_SESSION['manager'] = true;
+                $_SESSION['id'] = $row['id_pendaftar'];
+                $_SESSION['username'] = $row1['username'];
+                $_SESSION['level']= $row['level'];
                 header("Location: dashboard/manager.php");
             }
             exit;
@@ -67,18 +78,18 @@ if (isset($_POST['login'])) {
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
-                        <div class="form-check form-check-lg d-flex align-items-end">
+                        <!-- <div class="form-check form-check-lg d-flex align-items-end">
                             <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
                             <label class="form-check-label text-gray-600" for="flexCheckDefault">
                                 Keep me logged in
                             </label>
-                        </div>
-                        <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" type="submit" name="login">Log in</button>
+                        </div> -->
+                        <button class="btn btn-primary btn-block btn-lg shadow-lg mt-3" type="submit" name="login">Log in</button>
+                        <a href="../index.php" class="btn btn-outline-primary btn-block btn-lg shadow-lg mt-1">Home</a>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
                         <p class="text-gray-600">Don't have an account? <a href="signup.php" class="font-bold">Sign
                                 up</a>.</p>
-                        <p><a class="font-bold" href="auth-forgot-password.html">Forgot password?</a>.</p>
                     </div>
                 </div>
             </div>

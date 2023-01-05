@@ -1,3 +1,7 @@
+<?php
+require '../backend/function.php';
+$obat = query("SELECT * FROM barang");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,7 +77,7 @@ https://templatemo.com/tm-559-zay-shop
                             <a class="nav-link" href="about.php">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Shop</a>
+                            <a class="nav-link" href="shop.php">Shop</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contact.php">Contact</a>
@@ -92,10 +96,10 @@ https://templatemo.com/tm-559-zay-shop
                     <a class="nav-icon position-relative text-decoration-none" href="#">
                         <!-- <i class="fa fa-fw fa-user text-dark mr-3"></i> -->
                         <!-- <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span> -->
-                        <a href="frontend/login.php">Login</a>
+                        <a href="login.php">Login</a>
                     </a>
                     <a class="nav-icon position-relative text-decoration-none" href="#">
-                        <a href="frontend/signup.php">Signup</a>
+                        <a href="signup.php">Signup</a>
                     </a>
                 </div>
             </div>
@@ -211,10 +215,19 @@ https://templatemo.com/tm-559-zay-shop
                 </div>
 
                 <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Kategori Obat</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
+                        <?php
+                        $kategori = query("SELECT DISTINCT kategori_obat  FROM barang");
+                        foreach ($kategori as $row) : ?>
+                            <li><a class="text-decoration-none" href="kategori.php?kategori=<?= $row['kategori_obat']; ?>"><?= $row['kategori_obat']; ?></a></li>
+                        <?php endforeach;
+
+                        ?>
                     </ul>
+                    <!-- <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
+                    </ul> -->
                 </div>
 
                 <div class="col-md-4 pt-5">
@@ -265,7 +278,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="row pt-2">
                     <div class="col-12">
                         <p class="text-left text-light">
-                            Copyright &copy; 2022 Company Name
+                            Copyright &copy; 2022 Apotik X
                         </p>
                     </div>
                 </div>

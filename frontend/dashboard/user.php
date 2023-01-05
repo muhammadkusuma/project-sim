@@ -1,12 +1,13 @@
 <?php
-
 require '../../backend/function.php';
+session_start();
 
 
-$id = $_GET["id_obat"];
+// $id = $_GET["id_obat"];
 
 // query data produk berdasarkan id
-$obat = query("SELECT * FROM barang WHERE id_obat = $id")[0];
+// $obat = query("SELECT * FROM barang WHERE id_obat = $id")[0];
+$obat = query("Select * from barang;");
 
 // cek apakah tombol submit sudah ditekan atau belum
 if (isset($_POST["beli"])) {
@@ -26,8 +27,6 @@ if (isset($_POST["beli"])) {
         ";
     }
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +41,9 @@ if (isset($_POST["beli"])) {
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
 
-    <link rel="stylesheet" href="assets/css/shared/iconly.css">
+    <link rel="stylesheet" href="assets/css/pages/fontawesome.css">
+    <link rel="stylesheet" href="assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="assets/css/pages/datatables.css">
 
 </head>
 
@@ -54,7 +55,8 @@ if (isset($_POST["beli"])) {
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
                             <a href="index.html">
-                                <img src="assets/images/logo/favicon.png" alt="Logo" srcset="">
+                                <!-- <img src="assets/images/logo/favicon.png" alt="Logo" srcset=""> -->
+                                <?= ucwords($_SESSION['username']) ?>
                             </a>
 
                         </div>
@@ -94,26 +96,13 @@ if (isset($_POST["beli"])) {
                                 <span>Dashboard</span>
                             </a>
                         </li>
-
-
-
-                        <!-- <li class="sidebar-title">Produk</li> -->
-                        <!-- 
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>Produk</span>
+                        <li class="sidebar-item  ">
+                            <a href="transaksi.php" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Transaksi</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="#">Tambah Produk</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="data.php">Lihat Produk</a>
-                                </li>
+                        </li>
 
-                            </ul>
-                        </li> -->
 
                         <li class="sidebar-item">
                             <a href="../../backend/logout.php" class='sidebar-link'>
@@ -133,44 +122,69 @@ if (isset($_POST["beli"])) {
                 </a>
             </header>
 
-            <form action="" method="post" enctype="multipart/form-data">
-                <div class="card-body">
+            <div class="page-heading">
+                <div class="page-title">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="hidden" name="id_obat" value="<?= $obat['id_obat']; ?>">
-                                <label for="nama_obat">Nama Obat</label>
-                                <input type="text" class="form-control" id="nama_obat" name="nama_obat" value="<?= $obat["nama_obat"] ?>" readonly>
-                            </div>
-                            <div class="form-group mt-2">
-                                <label for="harga_obat">Harga</label>
-                                <input type="number" class="form-control" id="harga_obat" name="harga_obat" value="<?= $obat["harga_obat"] ?>" readonly>
-                            </div>
-                            <div class="form-group mt-2">
-                                <label for="stok_obat">Stok Obat</label>
-                                <input type="number" class="form-control" id="stok_obat" name="stok_obat" value="<?= $obat["stok_obat"] ?>" readonly>
-                            </div>
-                            <div class="form-group mt-2">
-                                <label for="jumlah_obat">Jumlah Pembelian</label>
-                                <input type="number" class="form-control" id="jumlah_obat" name="jumlah_obat">
-                            </div>
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Daftar Obat</h3>
                         </div>
-                        <div class="col-md-12">
-                            <input type="submit" class="btn btn-primary" name="beli" value="Beli">
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="user.php">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Daftar Obat</li>
+                                </ol>
+                            </nav>
                         </div>
                     </div>
                 </div>
-            </form>
 
+                <!-- <?php var_dump($_SESSION['id']);?> -->
+                <!-- Basic Tables start -->
+                <section class="section">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Obat</th>
+                                        <th>Harga</th>
+                                        <th>Stok</th>
+                                        <th>Aksi</th>
 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    <?php foreach ($obat as $obt) : ?>
+                                        <tr>
+                                            <td><?= $i; ?></td>
+                                            <td><?= $obt["nama_obat"]; ?></td>
+                                            <td>Rp. <?=  number_format( $obt["harga_obat"]); ?></td>
+                                            <td><?= $obt["stok_obat"]; ?></td>
+                                            <td>
+                                                <a href="beli.php?id_obat=<?= $obt["id_obat"]; ?>" class="btn btn-success">Beli</a>
+                                            </td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </section>
+                <!-- Basic Tables end -->
+            </div>
         </div>
     </div>
     <script src="assets/js/bootstrap.js"></script>
     <script src="assets/js/app.js"></script>
 
-    <!-- Need: Apexcharts -->
-    <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
-    <script src="assets/js/pages/dashboard.js"></script>
+    <script src="assets/extensions/jquery/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+    <script src="assets/js/pages/datatables.js"></script>
 
 </body>
 

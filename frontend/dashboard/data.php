@@ -33,8 +33,10 @@ $obat = query("SELECT * FROM barang");
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html">
-                                <img src="assets/images/logo/favicon.png" alt="Logo" srcset="">
+                            <a href="index.php">
+
+                                <!-- <img src="assets/images/logo/favicon.png" alt="Logo" srcset=""> -->
+                                <?= ucwords($_SESSION['level']) ?>
                             </a>
 
                         </div>
@@ -68,7 +70,7 @@ $obat = query("SELECT * FROM barang");
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item   ">
+                        <li class="sidebar-item ">
                             <a href="index.php" class='sidebar-link'>
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Dashboard</span>
@@ -76,20 +78,30 @@ $obat = query("SELECT * FROM barang");
                         </li>
 
 
-                        <li class="sidebar-item  has-sub active">
+
+                        <!-- <li class="sidebar-title">Produk</li> -->
+
+                        <li class="sidebar-item active has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
                                 <span>Produk</span>
                             </a>
                             <ul class="submenu ">
-                                <li class="submenu-item  ">
+                                <li class="submenu-item ">
                                     <a href="tambah.php">Tambah Produk</a>
                                 </li>
-                                <li class="submenu-item active">
+                                <li class="submenu-item active ">
                                     <a href="data.php">Lihat Produk</a>
                                 </li>
 
                             </ul>
+                        </li>
+
+                        <li class="sidebar-item ">
+                            <a href="admin-transaksi.php" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Daftar Transaksi</span>
+                            </a>
                         </li>
 
                         <li class="sidebar-item">
@@ -98,6 +110,7 @@ $obat = query("SELECT * FROM barang");
                                 <span>Log Out</span>
                             </a>
                         </li>
+
                     </ul>
                 </div>
             </div>
@@ -149,8 +162,15 @@ $obat = query("SELECT * FROM barang");
                                             <td><img src="../img/<?= $row["foto_obat"]; ?>" width="50"></td>
                                             <td><?= $row["nama_obat"]; ?></td>
                                             <td><?= $row["kategori_obat"]; ?></td>
-                                            <td><?= $row["harga_obat"]; ?></td>
-                                            <td><?= $row["stok_obat"]; ?></td>
+                                            <td>Rp. <?=  number_format($row["harga_obat"]); ?></td>
+                                            <?php
+                                            if ($row["stok_obat"] <= 10) {
+                                                echo "<td style='color:red;'>" . $row["stok_obat"] . "</td>";
+                                            } else {
+                                                echo "<td>" . $row["stok_obat"] . "</td>";
+                                            }
+                                            ?>
+                                            <!-- <td><?= $row["stok_obat"]; ?></td> -->
                                             <td><?= $row["exp_obat"]; ?></td>
                                             <td>
                                                 <a href="ubah.php?id_obat=<?= $row["id_obat"]; ?>" class="btn btn-warning">Ubah</a>

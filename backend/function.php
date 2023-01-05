@@ -141,16 +141,57 @@ function beli($data)
     $id = $data["id_obat"];
     $jumlah_obat = $data["jumlah_obat"];
     $harga_obat = $data["harga_obat"];
+    $nama= $data["nama"];
+    $alamat= $data["alamat"];
+    $nohp= $data["hp"];
     $jumlahobat = intval($jumlah_obat);
     $hargaobat = intval($harga_obat);
     $hargaasli = $jumlahobat * $hargaobat;
+    $id_pendaftar=$_SESSION['id'];
     // $harga= strval($hargaasli);
     $harga = "$hargaasli";
-    
+
     $sql = "INSERT INTO transaksi (id_obat, jumlah, total_harga, status, tanggal)
-                    VALUES ('$id', '$jumlah_obat', '$hargaasli', 'DIPROSES',curdate());";
+                    VALUES ($id, $jumlah_obat, $hargaasli, 'DIPROSES',curdate())";
     $sql .= "UPDATE barang SET stok_obat = stok_obat - $jumlah_obat WHERE id_obat = $id;";
     $conn->exec($sql);
+    var_dump($sql);
+    // die;
     return $conn->lastInsertId();
+
+    // $sql=query("INSERT INTO transaksi (id_obat, jumlah, total_harga, status, tanggal)
+    //                 VALUES ('$id', '$jumlah_obat', '$hargaasli', 'DIPROSES',curdate())");
+    // $sql=query("UPDATE barang SET stok_obat = stok_obat - $jumlah_obat WHERE id_obat = $id");
+
+
+
+
+    // $id = $_GET["id_obat"];
+    // $jumlah_obat = $data["jumlah_obat"];
+    // $harga_obat = $data["harga_obat"];
+    // $nama= $data["nama"];
+    // $alamat= $data["alamat"];
+    // $nohp= $data["hp"];
+    // $jumlahobat = intval($jumlah_obat);
+    // $hargaobat = intval($harga_obat);
+    // $hargaasli = $jumlahobat * $hargaobat;
+    // $id_pendaftar=$_SESSION['id'];
+    // // $harga= strval($hargaasli);
+    // $harga = "$hargaasli";
+
+    // $sql = "INSERT INTO transaksi (id_obat, jumlah, total_harga, status, tanggal, nama, alamat, hp, id_pendaftar)
+    //                 VALUES ('$id', '$jumlah_obat', '$hargaasli', 'DIPROSES',curdate()), '$nama','$alamat','$nohp','$id_pendaftar')";
+    // $sql .= "UPDATE barang SET stok_obat = stok_obat - $jumlah_obat WHERE id_obat = $id;";
+    // $conn->exec($sql);
+    // var_dump($sql);
+    // // die;
+    // return $conn->lastInsertId();
     
+}
+
+
+function unik()
+{
+    $abc = rand(1000, 9999);
+    return $abc;
 }

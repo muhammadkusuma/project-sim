@@ -42,8 +42,10 @@ if (isset($_POST['tambah'])) {
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html">
-                                <img src="assets/images/logo/favicon.png" alt="Logo" srcset="">
+                            <a href="index.php">
+
+                                <!-- <img src="assets/images/logo/favicon.png" alt="Logo" srcset=""> -->
+                                <?= ucwords($_SESSION['level']) ?>
                             </a>
 
                         </div>
@@ -77,14 +79,18 @@ if (isset($_POST['tambah'])) {
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item   ">
+                        <li class="sidebar-item ">
                             <a href="index.php" class='sidebar-link'>
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item  has-sub active">
+
+
+                        <!-- <li class="sidebar-title">Produk</li> -->
+
+                        <li class="sidebar-item active has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
                                 <span>Produk</span>
@@ -98,6 +104,13 @@ if (isset($_POST['tambah'])) {
                                 </li>
 
                             </ul>
+                        </li>
+
+                        <li class="sidebar-item ">
+                            <a href="admin-transaksi.php" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Daftar Transaksi</span>
+                            </a>
                         </li>
 
                         <li class="sidebar-item">
