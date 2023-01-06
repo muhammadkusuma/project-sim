@@ -170,7 +170,7 @@ if (isset($_POST["beli"])) {
                                     <div class="form-group mt-2">
                                         <label for="harga_obat">Harga</label>
                                         <input type="number" class="form-control" id="harga_obat" name="harga_obat" value="<?= $obat["harga_obat"]; ?>" readonly>
-                                        <input type="hidden" name="harga_obat" value="<?= number_format($obat["harga_obat"]); ?>">
+                                        <input type="hidden" name="harga_obat" value="<?= $obat["harga_obat"]; ?>">
                                     </div>
                                     <div class="form-group mt-2">
                                         <label for="stok_obat">Stok Obat</label>
